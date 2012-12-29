@@ -3,13 +3,20 @@ import riak
 import django_riak
 import pwd
 import os
-
+import os.path
+import yaml
 
 # Django settings for riagi project.
 
 if pwd.getpwuid(os.getuid())[0] == "dotcloud":
     RIAK_HOST = "riak01.riagi.com"
     RIAK_PORT = "8098"
+    DEBUG = False
+elif os.path.isfile('/etc/riagi/riak_lb.yaml'):
+    doc = open('/etc/riagi/riak_lb.yaml', 'r').read()
+    settings = yaml.load(doc)    
+    RIAK_HOST = settings['loadbalancer']['hostname']
+    RIAK_PORT = settings['loadbalancer']['port']
     DEBUG = False
 else:
     RIAK_HOST = "127.0.0.1"
@@ -40,7 +47,7 @@ USE_L10N = False
 
 MEDIA_URL = ''
 STATIC_URL = '/static/'
-STATIC_ROOT = ''
+STATIC_ROOT = '/usr/local/riagi/riagi/staic'
 MEDIA_ROOT = ''
 
 STATICFILES_DIRS = (

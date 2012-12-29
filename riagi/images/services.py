@@ -1,4 +1,3 @@
-import sha
 import base64
 import uuid
 import httplib
