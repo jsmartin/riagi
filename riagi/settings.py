@@ -18,10 +18,19 @@ elif os.path.isfile('/etc/riagi/riak_lb.yaml'):
     RIAK_HOST = settings['loadbalancer']['hostname']
     RIAK_PORT = settings['loadbalancer']['port']
     DEBUG = False
+    MEDIA_URL = settings['media']['url']
+    MEDIA_ROOT = settings['media']['root']
+    STATIC_URL = settings['static']['url']
+    STATIC_ROOT = settings['static']['root']
+
 else:
     RIAK_HOST = "127.0.0.1"
     RIAK_PORT = "8087"
     DEBUG = True
+    MEDIA_URL = ''
+    STATIC_URL = '/static/'
+    STATIC_ROOT = ''
+    MEDIA_ROOT = ''
 
 TEMPLATE_DEBUG = DEBUG
 RIAK_PROTOCOL = "http"
@@ -47,7 +56,7 @@ USE_L10N = False
 
 MEDIA_URL = ''
 STATIC_URL = '/static/'
-STATIC_ROOT = '/usr/local/riagi/riagi/staic'
+STATIC_ROOT = ''
 MEDIA_ROOT = ''
 
 STATICFILES_DIRS = (
